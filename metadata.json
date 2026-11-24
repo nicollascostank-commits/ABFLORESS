@@ -1,0 +1,6 @@
+{
+  "name": "AB Flores & Decoração",
+  "description": "Experiência digital premium da AB Flores & Decoração: arte floral autoral, catálogo interativo organizado por categorias, conheça Arley e atendimento sob medida via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary-dark: #38432a;
+    --color-primary-darker: #242c1b;
+    --color-primary-sage: #748a54;
+    --color-primary-olive: #5d6f43;
+    --color-sand: #e8e3d7;
+    --color-nude: #dad2bf;
+    --color-cream: #faf8f5;
+    --color-cream-card: #f5f1e8;
+    --color-gold: #c29d59;
+    --color-dark-text: #1f2518;
+    --color-muted-text: #5d6650;
+    --color-border-subtle: rgba(116, 138, 84, 0.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--color-dark-text);
+    background-color: var(--color-cream);
+  }
+
+  body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+.font-brand {
+  font-family: 'Exo', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Cinematic Slow Zoom / Ken Burns Animation */
+@keyframes cinematicZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-cinematic-zoom {
+  animation: cinematicZoom 26s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* Smooth Image Reveal */
+@keyframes imageReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.animate-image-reveal {
+  animation: imageReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Vitrine Highlight Christmas Opening Scene (compositor-only, finite, once per load) */
+@keyframes vitrineNatalParticleFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0) rotate(0deg) scale(0.85);
+  }
+  16% {
+    opacity: var(--p-opacity, 0.85);
+  }
+  55% {
+    transform: translate3d(var(--p-sway, 10px), 240px, 0) rotate(var(--p-rot, 65deg)) scale(1);
+  }
+  84% {
+    opacity: var(--p-opacity, 0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--p-sway, 10px) * -0.45), 490px, 0) rotate(var(--p-rot-end, 130deg)) scale(0.9);
+  }
+}
+
+@keyframes vitrineOpeningPhraseSettle {
+  0% {
+    opacity: 0.85;
+    transform: translate3d(0, 6px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.vitrine-natal-particle {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.vitrine-opening-active .vitrine-natal-particle {
+  animation-name: vitrineNatalParticleFall;
+  animation-duration: var(--p-dur, 2400ms);
+  animation-delay: var(--p-delay, 0ms);
+  animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+
+.vitrine-opening-active .vitrine-opening-phrase {
+  animation: vitrineOpeningPhraseSettle 650ms cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-cinematic-zoom {
+    animation: none !important;
+  }
+  .vitrine-natal-particle,
+  .vitrine-opening-phrase {
+    animation: none !important;
+  }
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes vitrineViewEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.vitrine-view-enter {
+  animation: vitrineViewEnter 360ms cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+}
+
+/* Enter animations for modals, drawers, tabs, and tooltips */
+@keyframes abEnterAnimation {
+  from {
+    opacity: var(--ab-enter-opacity, 1);
+    transform: translate3d(var(--ab-enter-x, 0), var(--ab-enter-y, 0), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-in {
+  animation-name: abEnterAnimation;
+  animation-duration: var(--tw-duration, 200ms);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.animate-in.duration-200 {
+  animation-duration: 200ms;
+}
+
+.animate-in.duration-300 {
+  animation-duration: 300ms;
+}
+
+.fade-in {
+  --ab-enter-opacity: 0;
+}
+
+.slide-in-from-right {
+  --ab-enter-x: 100%;
+}
+
+.slide-in-from-right-3 {
+  --ab-enter-x: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vitrine-view-enter,
+  .animate-in {
+    animation: none !important;
+  }
+}
+
